@@ -20,5 +20,5 @@ jobs:
         run: mvn -B --file pom.xml clean release:prepare
       - name: Perform release
         id: perform-release
-        run: mvn -DskipTests -B --file pom.xml clean release:perform
+        run: mvn -DskipTests -B --file pom.xml release:perform
 
