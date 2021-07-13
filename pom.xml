@@ -4,7 +4,7 @@
 
     <groupId>io.github.artkonr</groupId>
     <artifactId>ensure</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <description>Zero-dependency argument checking utility</description>
     <packaging>jar</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
