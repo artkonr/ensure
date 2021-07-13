@@ -1,0 +1,24 @@
+name: Release build
+on:
+  push:
+    branches:
+      - release
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v2
+      - name: Set up JDK
+        id: jdk-setup
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.11
+      - name: Prepare release
+        id: prepare-release
+        run: mvn -B --file pom.xml clean release:prepare
+      - name: Perform release
+        id: perform-release
+        run: mvn -DskipTests -B --file pom.xml release:perform
+
