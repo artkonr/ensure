@@ -4,7 +4,7 @@
 
     <groupId>io.github.artkonr</groupId>
     <artifactId>ensure</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <description>Zero-dependency argument checking utility</description>
     <packaging>jar</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
@@ -99,9 +99,18 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>prepare-javadoc</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>javadoc</goal>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <reportOutputDirectory>${project.basedir}/target/docs/javadocs</reportOutputDirectory>
-                    <destDir>apidocs</destDir>
                     <quiet>true</quiet>
                     <failOnError>true</failOnError>
                     <failOnWarnings>true</failOnWarnings>
