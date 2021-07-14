@@ -13,7 +13,7 @@ import java.util.Map;
  *   <li>{@link Collection}, {@link Iterable} or {@link Map} non-emptiness</li>
  *   <li>other assorted checks</li>
  * </ul>
- * @author @artkonr
+ * @author artkonr@gmail.com
  */
 public final class Ensure {
 
