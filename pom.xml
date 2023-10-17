@@ -4,7 +4,7 @@
 
     <groupId>io.github.artkonr</groupId>
     <artifactId>ensure</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <description>Zero-dependency argument checking utility</description>
     <packaging>jar</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
@@ -170,24 +170,26 @@
                     <tagNameFormat>v@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
-            
+
+            <!-- jar sign -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
-				<configuration>
-				    <gpgArguments>
-					<arg>--pinentry-mode</arg>
-					<arg>loopback</arg>
-				    </gpgArguments>
-				</configuration>
-				<executions>
+                <version>3.1.0</version>
+                <configuration>
+                    <gpgArguments>
+                        <arg>--pinentry-mode</arg>
+                        <arg>loopback</arg>
+                    </gpgArguments>
+                    <keyname>${project.groupId}</keyname>
+                </configuration>
+                <executions>
                     <execution>
-                	<id>sign-artifact</id>
-                	<phase>verify</phase>
-                	<goals>
-                	    <goal>sign</goal>
-                	</goals>
+                        <id>sign-artifact</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -283,6 +285,18 @@
                 </executions>
             </plugin>
 
+            <!-- Nexus deploy plugin -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.1.2</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <tokenEnabled>true</tokenEnabled>
+                </configuration>
+            </plugin>
+
             <!-- Reporting -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -306,7 +320,7 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
-            </plugin>  
+            </plugin>
 
         </plugins>
 
@@ -319,16 +333,5 @@
    	      <distribution>repo</distribution>
    	    </license>
     </licenses>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>    
 
 </project>
