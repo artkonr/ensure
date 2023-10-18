@@ -1,0 +1,32 @@
+name: Build snapshot
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        id: checkout
+
+      - name: Setup JDK
+        id: jdk-setup
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.11
+
+      - name: Pull settings
+        id: pull-settings
+        env:
+          SETTINGS_XML: ${{ secrets.SETTINGS_XML }}
+        run: |
+          echo "$SETTINGS_XML" | base64 -d > settings.xml
+
+      - name: Dry-run deploy
+        id: deploy-dry-run
+        run: 'mvn -B release:prepare -DdryRun=true -s ./settings.xml'
